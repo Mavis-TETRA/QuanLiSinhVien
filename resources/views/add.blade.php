@@ -1,3 +1,4 @@
+@hasanyrole('Admin')
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -139,3 +140,6 @@
         </div>
     </div>
 </x-app-layout>
+@else
+  <p>Trang Không Tồn Tại</p>
+@endhasanyrole

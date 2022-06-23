@@ -34,6 +34,10 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('/sinhvien', SinhvienController::class);
   });
 
+  Route::group(['middleware' => 'auth'], function() {
+    Route::resource('/user', UserController::class);
+  });
+
 // Route::resource('sinhvien', SinhvienController::class)-> middleware(['auth']);
 
 Route::get('/detail/{id}',[SinhvienController::class, 'show'])->middleware(['auth']);
@@ -49,13 +53,15 @@ Route::get('/detail/{id}',[SinhvienController::class, 'show'])->middleware(['aut
 //     return view('add');
 // })->middleware(['auth'])->name('add');
 
-Route::get('/controller-account', function () {
-    return view('controller-account');
-})->middleware(['auth'])->name('controller-account');
+Route::get('/controller-account',[UserController::class, 'index'])->middleware(['auth'])->name('controller-account');
+
+// Route::get('/controller-account', function () {
+//     return view('controller-account');
+// })->middleware(['auth'])->name('controller-account');
 
 Route::get('/my-account', function () {
-    return view('controller-account');
-})->middleware(['auth'])->name('controller-account');
+    return view('myaccount');
+})->middleware(['auth'])->name('myaccount');
 
 require __DIR__.'/auth.php';
 

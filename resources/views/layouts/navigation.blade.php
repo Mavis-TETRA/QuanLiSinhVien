@@ -29,7 +29,7 @@
                         {{ __('Quản Lý Tài Khoản') }}
                     </x-nav-link>
                     @endhasanyrole
-                    <x-nav-link :href="route('controller-account')" :active="request()->routeIs('controller-account')">
+                    <x-nav-link :href="route('myaccount')" :active="request()->routeIs('myaccount')">
                         {{ __('Thông Tin Tài Khoản') }}
                     </x-nav-link>
                 </div>

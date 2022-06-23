@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 use App\Models\User;
 use Session;
@@ -18,9 +20,13 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+        // 1458912
         // Role::create(['name' => 'Admin']);
-        // Role::create(['name' => 'Client']);
+        // Role::create(['name' => 'Manage']);
+        // Role::create(['name' => 'Staff']);
+
+        // Role::create(['name' => 'User']);
 
         // Permission::create(['name' => 'edit alumnus']);
         // Permission::create(['name' => 'add alumnus']);
@@ -40,10 +46,11 @@ class UserController extends Controller
         // Permission::create(['name' => 'edit account']);
         // Permission::create(['name' => 'delete account']);
 
-        // $role = Role::find(1);
+        // $role = Role::find(3);
         // // $permission = Permission::find(1);
-        // for ($i=1; $i <= 14; $i++) { 
-        //     $permission = Permission::find($i);
+        // $my_array = array(4,8,12);
+        // for ($i=0; $i < count($my_array); $i++) { 
+        //     $permission = Permission::find((int)$my_array[$i]);
         //     $role->givePermissionTo($permission);
         // }
         // $role->givePermissionTo($permission);
@@ -51,9 +58,9 @@ class UserController extends Controller
         // if(auth()->user()){
         //     auth()->user()->assignRole('Admin');
         //   }
-
-
-        return view('controller-account');
+        // return view('controller-account');
+        $user = User::paginate(5);
+        return view('controller-account', compact('user')) -> with('i', (request() -> input('page', 1) -1) *5);
     }
 
     /**
@@ -85,7 +92,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('404');
     }
 
     /**
@@ -94,9 +101,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('editaccount', compact('user'));
     }
 
     /**
@@ -106,9 +113,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+
+        $user->update($request->all());
+        return redirect()->route('controller-account')->with('thognbao', 'Cập Nhật Tài Khoản Thành Công!');
     }
 
     /**
@@ -117,8 +126,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('controller-account')->with('thognbao', 'Xóa Tài Khoản Thành Công!');
+
     }
 }
