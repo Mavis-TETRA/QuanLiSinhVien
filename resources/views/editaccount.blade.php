@@ -1,3 +1,4 @@
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -51,11 +52,34 @@
                       <div class="valid-feedback">Đầy đủ thông tin.</div>
                       <div class="invalid-feedback">Thiếu thông tin, vui lòng nhập đủ.</div>
                     </div>
-
+                    @hasanyrole('Admin')
                     <div class="form-group">
+                    <label class="font-semibold text-l text-gray-800 leading-tight" for="role">Phân Quyền/Roles:</label><br>
+                    @foreach ($role as $key => $r)
+                      <div class="form-check-inline">
+                        <label class="form-check-label" for="{{$r->id}}">
+                          <input type="radio" class="form-check-input" {{$r->id == $allcolumnrole->id ? 'checked': ''}} id="{{$r->id}}" name="role" value="{{$r ->name}}">{{$r->name}}
+                        </label>
+                      </div>
+                    @endforeach
+                    </div>
+                    @else
+                    <div class="form-group">
+                      <label class="font-semibold text-l text-gray-800 leading-tight" for="role">Phân Quyền/Roles:</label><br>
+                      @foreach ($role as $key => $r)
+                        <div class="form-check-inline">
+                          <label class="form-check-label" for="{{$r->id}}" {{$r->id == $allcolumnrole->id ? '': 'hidden'}}>
+                            <input type="radio" class="form-check-input" {{$r->id == $allcolumnrole->id ? 'checked': 'hidden'}} id="{{$r->id}}" name="role" value="{{$r ->name}}">{{$r->name}}
+                          </label>
+                        </div>
+                      @endforeach
+                      </div>
+                    @endhasanyrole
+                    
+                    {{-- <div class="form-group">
                       <label class="font-semibold text-l text-gray-800 leading-tight" for="image">Ảnh nền/Avatar:</label>
                       <input type="file" class="form-control-file border">
-                    </div>
+                    </div> --}}
                     
 
                     <div class="form-group" style="  display: flex;

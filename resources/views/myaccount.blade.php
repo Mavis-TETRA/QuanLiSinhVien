@@ -50,7 +50,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                    <div class="main-profile">
                     <div class="body">
-                        <img src="{{url('drawble/person.jpg') }}" alt="image" style="width:300px; height:auto;">
+                        <img src="{{url('drawble/avatar.jpg') }}" alt="image" style="width:300px; height:auto;">
                         
                     </div>
                     <div class="body body-text">

@@ -37,7 +37,17 @@ class SinhvienController extends Controller
      */
     public function store(Request $request)
     {
-        Sinhvien::create($request->all());
+
+        $get_image = $request-> Image;
+        $path = 'drawble/sinhvien';
+        $get_name_image = $get_image->getClientOriginalName();
+        $name_image = current(explode('.', $get_name_image));
+        $new_name = $name_image.'.'.$get_image->getClientOriginalExtension();
+        $get_image->move($path, $new_name);
+        $requestdb = $request->all();
+        $requestdb['Image'] = $get_image->getClientOriginalName();
+        
+        Sinhvien::create($requestdb);
         return redirect()->route('dashboard')->with('thognbao', 'Thêm Sinh Viên Thành Công!');
         // return view('add');
     }
@@ -74,7 +84,23 @@ class SinhvienController extends Controller
      */
     public function update(Request $request, Sinhvien $sinhvien)
     {
-        $sinhvien->update($request->all());
+        if ( $request-> Image != null) {
+            $link = $request-> ChangeImage;
+            unlink("C:\\xampp\htdocs\WebLaravel\quanlysinhvien\public\drawble\sinhvien\\$link" );
+            $get_image = $request-> Image;
+            $path = 'drawble/sinhvien';
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.', $get_name_image));
+            $new_name = $name_image.'.'.$get_image->getClientOriginalExtension();
+            $get_image->move($path, $new_name);
+            $requestdb = $request->all();
+            $requestdb['Image'] = $get_image->getClientOriginalName();
+        }else {
+            $requestdb = $request->all();
+            $requestdb['Image'] = $sinhvien-> Image;
+        }
+        
+        $sinhvien->update($requestdb);
         return redirect()->route('dashboard')->with('thognbao', 'Cập Nhật Sinh Viên Thành Công!');
     }
 
@@ -86,6 +112,7 @@ class SinhvienController extends Controller
      */
     public function destroy(Sinhvien $sinhvien)
     {
+        unlink("C:\\xampp\htdocs\WebLaravel\quanlysinhvien\public\drawble\sinhvien\\$sinhvien->Image" );
         $sinhvien->delete();
         return redirect()->route('dashboard')->with('thognbao', 'Xóa Sinh Viên Thành Công!');
     }

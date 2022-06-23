@@ -45,7 +45,7 @@
                             <tr>
                               <td>{{++ $i}}</td>
                               <td>{{$sv -> MaSV}} </td>
-                              <td><img class="persion" src="{{url('drawble',$sv -> FirthName)}}" alt="" style="width: 170px; height: 130px;"></td>
+                              <td><img class="persion" src="{{url('drawble/sinhvien/',$sv -> Image)}}" alt="" style="width: 170px; height: 130px;"></td>
                               <td>{{$sv -> FirthName}} {{$sv -> LastName}}</td>
                               <td>{{$sv -> Gender}}</td>
                               <td>{{$sv -> Birth}}</td>
@@ -55,7 +55,7 @@
                               <td><a href="/detail/{{$sv -> id}}" class="btn btn-primary" role="button">Xem</a></td>
                               <form action="{{route('sinhvien.destroy', $sv-> id)}}" method="POST">
 
-                                @hasanyrole('Admin')
+                                @hasanyrole('Admin|Manage|Staff')
                                 <td><a href="{{route('sinhvien.edit', $sv-> id)}}" class="btn btn-warning" role="button">Sửa</a></td>
                                 @else
                                 <td></td>

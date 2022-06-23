@@ -31,7 +31,7 @@
 
 
 
-                  <form action="{{route('sinhvien.update', $sinhvien-> id)}}" method="POST" class="was-validated" style="margin-top: 20px;">
+                  <form action="{{route('sinhvien.update', $sinhvien-> id)}}" method="POST" class="was-validated" style="margin-top: 20px;" enctype="multipart/form-data">
                     {{-- <div class="form-group">
                       <label for="">:</label>
                       <input type="text" class="form-control" id="" placeholder="Enter " name="" required>
@@ -40,7 +40,8 @@
                     </div> --}}
                     @csrf
                     @method('PUT')
-                    <input type="text" hidden value="">
+                    <input type="text" value="{{$sinhvien->Image}}" hidden name="ChangeImage">
+                    
                     <div class="form-group">
                       <label class="font-semibold text-l text-gray-800 leading-tight" for="codestudent">Mã số sinh viên/No.:</label>
                       <input type="text" class="form-control" id="codestudent" placeholder="Nhập mã số/Enter code" name="MaSV" value="{{$sinhvien-> MaSV}}" required>
@@ -134,6 +135,7 @@
                         <option value="Tạm Hoãng">Tạm Hoãng</option>
                       </select>
                     </div>
+
                     
                     <div class="form-group">
                       <label class="font-semibold text-l text-gray-800 leading-tight" for="cardimage">Ảnh Thẻ/Card image:</label>

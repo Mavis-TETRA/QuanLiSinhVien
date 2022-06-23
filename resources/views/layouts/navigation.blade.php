@@ -18,13 +18,13 @@
                         {{ __('Trang Chủ') }}
                     </x-nav-link>
                     {{-- @can('edit alumnus') --}}
-                    @hasanyrole('Admin')
+                    @hasanyrole('Admin|Manage')
                     <x-nav-link :href="route('add')" :active="request()->routeIs('add')">
                         {{ __('Thêm Mới') }}
                     </x-nav-link>
                     @endhasanyrole
                     {{-- @endcan --}}
-                    @hasanyrole('Admin')
+                    @hasanyrole('Admin|Manage')
                     <x-nav-link :href="route('controller-account')" :active="request()->routeIs('controller-account')">
                         {{ __('Quản Lý Tài Khoản') }}
                     </x-nav-link>

@@ -1,4 +1,4 @@
-@hasanyrole('Admin')
+@hasanyrole('Admin|Manage')
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -33,7 +33,7 @@
 
 
 
-                  <form action="{{route('sinhvien.store')}}" method="POST" class="was-validated" style="margin-top: 20px;">
+                  <form action="{{route('sinhvien.store')}}" method="POST" class="was-validated" style="margin-top: 20px;" enctype="multipart/form-data">
                     {{-- <div class="form-group">
                       <label for="">:</label>
                       <input type="text" class="form-control" id="" placeholder="Enter " name="" required>

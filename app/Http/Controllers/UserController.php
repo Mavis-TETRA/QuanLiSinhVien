@@ -92,7 +92,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        return view('404');
+        return view('myaccount');
     }
 
     /**
@@ -103,8 +103,14 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('editaccount', compact('user'));
+        $namerole = $user->roles->first()->name;
+        $role = Role::orderBy('id','DESC')->get();
+        $allcolumnrole = $user->roles->first();
+        return view('editaccount', compact('user', 'role', 'allcolumnrole', 'namerole'));
     }
+
+    
+    
 
     /**
      * Update the specified resource in storage.
@@ -115,10 +121,18 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-
-        $user->update($request->all());
-        return redirect()->route('controller-account')->with('thognbao', 'Cập Nhật Tài Khoản Thành Công!');
+        $data = $request->all();
+        $user->update($data);
+        $user->syncRoles($data['role']);
+        if (auth()->user()->roles->first()->name == "Admin") {
+            return redirect()->route('controller-account')->with('thognbao', 'Cập Nhật Tài Khoản Thành Công!');
+        }else {
+            return redirect()->route('myaccount')->with('thognbao', 'Cập Nhật Tài Khoản Thành Công!');
+        }
     }
+
+    
+    
 
     /**
      * Remove the specified resource from storage.

@@ -1,4 +1,4 @@
-@hasanyrole('Admin')
+@hasanyrole('Admin|Manage')
 <x-app-layout>
     <x-slot name="header">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -25,10 +25,11 @@
                         <thead>
                           <tr>
                             <th>STT</th>
-                            <th>Ảnh</th>
+                            
                             <th>Tên</th>
                             <th>Email</th>
-                            <th>Thông Tin</th>
+                            <th>Quyền</th>
+                            
                             <th>Chỉnh Sửa</th>
                             <th>Xóa</th>
                             <th>Ngày Tạo</th>
@@ -39,10 +40,12 @@
                           @foreach ($user as $us)
                             <tr>
                               <td>{{++ $i}}</td>
-                              <td>{{$us -> name}}</td>
+                              
                               <td>{{$us -> name}}</td>
                               <td>{{$us -> email}}</td>
-                              <td>{{$us -> email}}</td>
+                              <td>{{$us->roles->first()->name}}</td>
+
+                              
                               <form action="{{route('user.destroy', $us-> id)}}" method="POST">
 
                                 @hasanyrole('Admin')
